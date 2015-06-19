@@ -2,6 +2,21 @@
 
 Demo code for implementing Event Broadcasting with Laravel 5.1 and Sockets.io, based on the Taylor Otwell's video.
 
+## Requirements
+
+- How to setup a project on homestead
+
+## Installation
+
+To install this demo, clone the repository, create a new homestead site and run these commands in homestead:
+
+- Run `composer install`
+- Run `npm install`
+- Run `node socket.js`
+
+There are two routes: `/` and `/event`, open them in two different browser tab, reload `/event` and you will see the web 
+socket in action!
+
 ## Technologies:
 
 - Laravel 5.1
