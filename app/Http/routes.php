@@ -1,16 +1,17 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
+/**
+ * Open this route in your browser to listen to the web socket.
+ */
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
+});
+
+/**
+ * Hit this route to trigger the event that will be broadcasted via your web socket.
+ */
+Route::get('event', function() {
+    event(new \App\User([
+        'name' => 'Bob', 'age' => 30
+    ]));
 });
