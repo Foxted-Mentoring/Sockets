@@ -2,13 +2,24 @@
 
 namespace App\Events;
 
-use App\Events\Event;
-use Illuminate\Queue\SerializesModels;
+use App\User;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserRegistered extends Event implements ShouldBroadcast
 {
-    use SerializesModels;
+
+    public $user;
+
+    /**
+     * Create a new event instance
+     *
+     * @param User $user
+     * @return void
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
     /**
      * Get the channels the event should be broadcast on.

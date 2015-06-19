@@ -2,51 +2,54 @@
 <html>
     <head>
         <title>Laravel</title>
-
-        <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-                margin-bottom: 40px;
-            }
-
-            .quote {
-                font-size: 24px;
+            body{
+                padding: 2em 0;
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-                <div class="quote">{{ Inspiring::quote() }}</div>
+            <div class="col-md-6 col-md-push-3">
+                <h1>Users</h1>
+                <hr>
+                <ul class="list-group" v-if="users.length > 0">
+                    <li class="list-group-item" v-repeat="users" class="user-@{{ $index }}">
+                        <span class="badge">@{{ age }} years old</span>
+                        @{{ name }}
+                    </li>
+                </ul>
+                <pre>@{{ $data | json}}</pre>
             </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.1/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+        <script>
+            var vm = new Vue({
+
+                el: 'body',
+
+                ready: function(){
+
+                    self = this;
+
+                    var socket = io('http://sockets.dev:3000');
+
+                    socket.on("registration-channel:App\\Events\\UserRegistered", function(data) {
+
+                        console.log(data);
+                        self.users.push(data.user);
+
+                    });
+                },
+
+                data: {
+                    users: [ ]
+                }
+
+            });
+        </script>
     </body>
 </html>
